@@ -80,6 +80,7 @@ func (d defaultMinimumSlotter) minimumSlot() primitives.Slot {
 }
 
 func (d defaultMinimumSlotter) setClock(c *startup.Clock) {
+	//nolint:all
 	d.clock = c
 }
 

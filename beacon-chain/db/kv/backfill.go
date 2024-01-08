@@ -14,7 +14,7 @@ import (
 // This value is used by the backfill service to keep track of the range of blocks that need to be synced. It is also used by the
 // code that serves blocks or regenerates states to keep track of what range of blocks are available.
 func (s *Store) SaveBackfillStatus(ctx context.Context, bf *dbval.BackfillStatus) error {
-	ctx, span := trace.StartSpan(ctx, "BeaconDB.SaveBackfillStatus")
+	_, span := trace.StartSpan(ctx, "BeaconDB.SaveBackfillStatus")
 	defer span.End()
 	bfb, err := proto.Marshal(bf)
 	if err != nil {
@@ -29,7 +29,7 @@ func (s *Store) SaveBackfillStatus(ctx context.Context, bf *dbval.BackfillStatus
 // BackfillStatus retrieves the most recently saved version of the BackfillStatus protobuf struct.
 // This is used to persist information about backfill status across restarts.
 func (s *Store) BackfillStatus(ctx context.Context) (*dbval.BackfillStatus, error) {
-	ctx, span := trace.StartSpan(ctx, "BeaconDB.BackfillStatus")
+	_, span := trace.StartSpan(ctx, "BeaconDB.BackfillStatus")
 	defer span.End()
 	bf := &dbval.BackfillStatus{}
 	err := s.db.View(func(tx *bolt.Tx) error {
